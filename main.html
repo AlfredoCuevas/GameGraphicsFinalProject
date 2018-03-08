@@ -1,0 +1,62 @@
+<!--
+    Contributors:
+-->
+<!-- 
+    About the Project:
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CMPM163 Final Project</title>
+    <style>
+        body { 
+            margin: 0;
+            overflow: hidden;
+         }
+    </style>
+</head>
+<body>
+
+    <div id="container"></div>
+
+    <!-- Loading external libraries -->
+    <script src="js/three.js"></script>
+    <script src="js/cmengine.js"></script>
+    <script src="js/OrbitControls.js"></script>
+
+    <!-- Loading external shaders -->
+    <script src="shaders/basic-shader.js"></script>
+
+    <!-- Loading external objects -->
+    <script src="js/objects/simple-box.js"></script>
+
+    <script>
+
+        var container = document.getElementById('container');
+
+        // renderer
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        container.appendChild( renderer.domElement );
+
+        // scene
+        var scene = new THREE.Scene();
+
+        // camera
+        var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+        // create objects
+        var box = createSimpleBox(1.0, 1.0, 1.0);
+
+        // add objects to the scene
+        scene.add(box);
+
+        // CMENGINE
+        CMENGINE.Start( scene, renderer, camera );
+        CMENGINE.Update();
+
+    </script>
+
+</body>
+</html>
