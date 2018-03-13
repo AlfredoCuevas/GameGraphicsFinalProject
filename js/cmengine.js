@@ -40,10 +40,14 @@ CMENGINE.Update = function(){
     }
 
     CMENGINE.controls.update();
-    console.log("7");
+
     requestAnimationFrame(CMENGINE.Update);
+
+    CMENGINE.renderer.setClearColor(0xcccccc);
     CMENGINE.renderer.render(CMENGINE.bufferScene, CMENGINE.camera, CMENGINE.bufferObject);
-    console.log(CMENGINE.scene.children[1].material);
+    //CMENGINE.scene.children[1].material.uniforms.uMap.value = bufferObject.texture;
+
+    renderer.setClearColor(0x666666);
     CMENGINE.renderer.render(CMENGINE.scene, CMENGINE.camera);
 }
 
