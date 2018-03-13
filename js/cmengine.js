@@ -13,7 +13,7 @@ CMENGINE.Start = function( scene, renderer, camera ){
     CMENGINE.renderer = renderer;
     CMENGINE.camera = camera;
 
-    CMENGINE.camera.position.z = 5.0;
+    //CMENGINE.camera.position.z = 5.0;
     CMENGINE.controls = new THREE.OrbitControls(CMENGINE.camera);
 }
 
