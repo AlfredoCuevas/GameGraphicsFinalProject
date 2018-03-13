@@ -1,11 +1,11 @@
-function createWaterPlane(w, d, texPath){
+function createWaterPlane(w, d, bufferTexture, texPath){
 	
 	var geometry = new THREE.PlaneGeometry(w, d, 20, 20);
 
 	//var tex = new THREE.TextureLoader().load(texPath);
 
 	var shaderInput = {
-		//uMap: {type: "t", value: tex },
+		uMap: {type: "t", value: bufferTexture },
 		uTime: {type: 'f', value: 0.0 },
 		uColor: {type: 'f', value: new THREE.Color('#0051da') },
 	}
