@@ -43,12 +43,21 @@ CMENGINE.Update = function(){
 
     requestAnimationFrame(CMENGINE.Update);
 
+    // Rendering to the Frame Buffer Object first
     CMENGINE.renderer.setClearColor(0xcccccc);
     CMENGINE.renderer.render(CMENGINE.bufferScene, CMENGINE.camera, CMENGINE.bufferObject);
-    //CMENGINE.scene.children[1].material.uniforms.uMap.value = bufferObject.texture;
+        //CMENGINE.scene.children[1].material.uniforms.uMap.value = bufferObject.texture;(probably no longer needed)
 
-    renderer.setClearColor(0x666666);
+    //temporarily get rid of the clipping planes and then restore them in the end
+    var temp = CMENGINE.renderer.clippingPlanes;
+    CMENGINE.renderer.clippingPlanes = [];
+
+    // Render to the screen
+    CMENGINE.renderer.setClearColor(0x666666);
     CMENGINE.renderer.render(CMENGINE.scene, CMENGINE.camera);
+
+    // placing the clipping plane back into the renderer.
+    CMENGINE.renderer.clippingPlanes = temp;
 }
 
 function onWindowResize( event ){

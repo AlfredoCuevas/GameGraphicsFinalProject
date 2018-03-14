@@ -8,6 +8,7 @@ function createSimpleBox(w, h, d){
         uniforms: shaderInput,
         vertexShader: basicVShader,
         fragmentShader: basicFShader,
+        clipping: true,
     });
 
     var mesh = new THREE.Mesh(cube, material);
