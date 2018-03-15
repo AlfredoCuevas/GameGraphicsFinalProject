@@ -44,6 +44,13 @@
 
         // scene
         var scene = new THREE.Scene();
+		
+		//skybox
+		var loader = new THREE.CubeTextureLoader();
+		loader.setPath('images/skybox/temp');
+		scene.background = loader.load(['front.jpg', 'back.jpg',
+									'top.jpg', 'bottom.jpg',
+									'right.jpg', 'left.jpg']);
 
         // camera
         var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
