@@ -44,11 +44,18 @@
 
         // scene
         var scene = new THREE.Scene();
+		
+		//skybox - will find a better/clear one at some point
+		var loader = new THREE.CubeTextureLoader();
+		loader.setPath('images/skybox/temp/');
+		scene.background = loader.load(['left.jpg', 'right.jpg',
+									'top.jpg', 'bottom.jpg',
+									'back.jpg', 'front.jpg']);
 
         // camera
         var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
-        camera.position.z = 5.0;
-        camera.position.y = 2.0;
+        camera.position.z = 15.0;
+        camera.position.y = 10.0;
 
         // FrameBufferObject: bufferScene will contain everything in scene except for the water
         var bufferObject = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight); // this creates an off-screen buffer. (Frame Buffer Object)!Update this for windowResize
