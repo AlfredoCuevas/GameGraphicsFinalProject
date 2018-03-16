@@ -1,6 +1,6 @@
 var CMENGINE = {}
 
-CMENGINE.Start = function( scene, renderer, camera, bufferScene, bufferObject ){
+CMENGINE.Start = function( scene, renderer, camera, bufferScene, bufferObjectRefraction, bufferObjectReflection ){
     for(var i = 0; i < scene.children.length; i++){
         if(scene.children[i].Start != null){
             scene.children[i].Start();
@@ -20,7 +20,8 @@ CMENGINE.Start = function( scene, renderer, camera, bufferScene, bufferObject ){
     CMENGINE.camera = camera;
 
     CMENGINE.bufferScene = bufferScene;
-    CMENGINE.bufferObject = bufferObject;
+    CMENGINE.bufferObjectRefraction = bufferObjectRefraction;
+    CMENGINE.bufferObjectReflection = bufferObjectReflection;
 
     //CMENGINE.camera.position.z = 5.0;
     CMENGINE.controls = new THREE.OrbitControls(CMENGINE.camera);
@@ -43,20 +44,27 @@ CMENGINE.Update = function(){
 
     requestAnimationFrame(CMENGINE.Update);
 
-    // Rendering to the Frame Buffer Object first
+    // Temp is an array that will be used to apply clipping planes to individual FBO
+    var temp = CMENGINE.renderer.clippingPlanes;
+
+    // Rendering to the Frame Buffer Object Refraction first
+    CMENGINE.renderer.clippingPlanes = [temp[0]];
     CMENGINE.renderer.setClearColor(0xcccccc);
-    CMENGINE.renderer.render(CMENGINE.bufferScene, CMENGINE.camera, CMENGINE.bufferObject);
+    CMENGINE.renderer.render(CMENGINE.bufferScene, CMENGINE.camera, CMENGINE.bufferObjectRefraction);
         //CMENGINE.scene.children[1].material.uniforms.uMap.value = bufferObject.texture;(probably no longer needed)
 
-    //temporarily get rid of the clipping planes and then restore them in the end
-    var temp = CMENGINE.renderer.clippingPlanes;
-    CMENGINE.renderer.clippingPlanes = [];
 
-    // Render to the screen
+    // Rendering to the Frame Buffer Object Reflection second
+    CMENGINE.renderer.clippingPlanes = [temp[1]];
+    CMENGINE.renderer.setClearColor(0xcccccc);
+    CMENGINE.renderer.render(CMENGINE.bufferScene, CMENGINE.camera, CMENGINE.bufferObjectReflection);
+
+    // Render to the screen, no clipping planes
+    CMENGINE.renderer.clippingPlanes = []
     CMENGINE.renderer.setClearColor(0x666666);
     CMENGINE.renderer.render(CMENGINE.scene, CMENGINE.camera);
 
-    // placing the clipping plane back into the renderer.
+    // giving the renderer all the clipping planes for the next update pass.
     CMENGINE.renderer.clippingPlanes = temp;
 }
 
