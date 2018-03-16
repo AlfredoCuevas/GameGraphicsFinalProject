@@ -14,11 +14,13 @@ function createSimpleBox(w, h, d){
     var mesh = new THREE.Mesh(cube, material);
 
     mesh.Start = function(){
-        mesh.position.z = 0.0;
+        //mesh.position.y += 1.0;
     }
 
     mesh.Update = function(){
+
         mesh.rotation.x += 0.05;
+        //mesh.position.x = 10 * Math.sin(performance.now() * 0.005);
     }
 
     return mesh;

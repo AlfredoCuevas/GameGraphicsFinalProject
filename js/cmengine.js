@@ -47,20 +47,26 @@ CMENGINE.Update = function(){
     // Temp is an array that will be used to apply clipping planes to individual FBO
     var temp = CMENGINE.renderer.clippingPlanes;
 
-    // Rendering to the Frame Buffer Object Refraction first
+    // Rendering to the Frame Buffer Object Refraction first---------------------------------------------------------
     CMENGINE.renderer.clippingPlanes = [temp[0]];
     CMENGINE.renderer.setClearColor(0xcccccc);
     CMENGINE.renderer.render(CMENGINE.bufferScene, CMENGINE.camera, CMENGINE.bufferObjectRefraction);
         //CMENGINE.scene.children[1].material.uniforms.uMap.value = bufferObject.texture;(probably no longer needed)
 
 
-    // Rendering to the Frame Buffer Object Reflection second
+    // Rendering to the Frame Buffer Object Reflection second--------------------------------------------------------
+     //var tempCamera = CMENGINE.camera;
+    var dist = 2 * (CMENGINE.camera.position.y - temp[1].constant);
+    CMENGINE.camera.position.y -= dist;
+    //CMENGINE.camera.rotation.y = -CMENGINE.camera.rotation.y;
     CMENGINE.renderer.clippingPlanes = [temp[1]];
     CMENGINE.renderer.setClearColor(0xcccccc);
     CMENGINE.renderer.render(CMENGINE.bufferScene, CMENGINE.camera, CMENGINE.bufferObjectReflection);
+    CMENGINE.camera.position.y += dist;
+    //CMENGINE.camera.rotation.y = -CMENGINE.camera.rotation.y;
 
-    // Render to the screen, no clipping planes
-    CMENGINE.renderer.clippingPlanes = []
+    // Render to the screen, no clipping planes----------------------------------------------------------------------
+    CMENGINE.renderer.clippingPlanes = [];
     CMENGINE.renderer.setClearColor(0x666666);
     CMENGINE.renderer.render(CMENGINE.scene, CMENGINE.camera);
 

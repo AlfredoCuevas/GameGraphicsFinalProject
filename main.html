@@ -28,10 +28,12 @@
     <!-- Loading external shaders -->
     <script src="shaders/basic-shader.js"></script>
     <script src="shaders/water-shader.js"></script>
+    <script src="shaders/mountain-shader.js"></script>
 
     <!-- Loading external objects -->
     <script src="js/objects/simple-box.js"></script>
     <script src="js/objects/water-plane.js"></script>
+    <script src="js/objects/mountain-plane.js"></script>
 
     <script>
 
@@ -68,13 +70,17 @@
 
             // add all objects to buffer scene except for water
             var bufferBox = createSimpleBox(1.0,1.0,1.0);
+            var bufferMount = createMountainPlane(20, 20);
             bufferScene.add(bufferBox);
+            bufferScene.add(bufferMount);
 
         // create objects
         var water = createWaterPlane(20, 20, bufferObjectRefraction.texture, bufferObjectReflection.texture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
+        var mount = createMountainPlane(20, 20);
 
         // add objects to the scene
+        scene.add(mount);
         scene.add(box);
         scene.add(water);
 
