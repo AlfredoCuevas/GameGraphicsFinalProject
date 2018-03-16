@@ -60,6 +60,10 @@
         // FrameBufferObject: bufferScene will contain everything in scene except for the water
         var bufferObject = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight); // this creates an off-screen buffer. (Frame Buffer Object)!Update this for windowResize
         var bufferScene = new THREE.Scene();
+        bufferScene.background = loader.load(['left.jpg', 'right.jpg',
+                                            'top.jpg', 'bottom.jpg',
+                                            'back.jpg', 'front.jpg']);
+
 
             // add all objects to buffer scene except for water
             var bufferBox = createSimpleBox(1.0,1.0,1.0);
