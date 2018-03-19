@@ -1,3 +1,3 @@
 # GameGraphicsFinalProject
 
-[link  to renderring](https://alfredocuevas.github.io/GameGraphicsFinalProject/main.html)
+[link to rendering](https://alfredocuevas.github.io/GameGraphicsFinalProject/main.html)

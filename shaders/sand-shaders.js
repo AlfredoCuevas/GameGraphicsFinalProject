@@ -1,12 +1,14 @@
 var sandVShader = `
 
 	uniform sampler2D sandHeightMap;
+	uniform sampler2D sandNormalMap;
 
     //attribute vec3 position;
 	//attribute vec2 uv;
 	//attribute vec3 normal;
 
 	uniform float displaceAmt; //controls the amount of vertex displacement...
+	uniform float yOffset;
 	
     varying float vDisplace; 
 	varying vec2 vUv;
@@ -16,10 +18,12 @@ var sandVShader = `
 	void main() {
        
 		vUv = uv;
-		
 		vec4 clr = texture2D(sandHeightMap, uv);
-		vDisplace = 0.333 * (clr.r+clr.g+clr.b) * displaceAmt; //displacement;
-		vec3 offset = vec3(0.0, 0.0, -0.52); // GLSL z axis is vertical apparently
+		vec4 clr2 = texture2D(sandNormalMap, uv);
+		float clrSum = clr.r+clr.g+clr.b;
+		float clr2Sum = clr2.r+clr2.g+clr2.b;
+		vDisplace = 0.333 * (clrSum + clr2Sum*2.0) * displaceAmt - (3.0*0.5*displaceAmt);
+		vec3 offset = vec3(0.0, 0.0, yOffset); // GLSL z axis is vertical apparently
         vec3 newPosition = (offset + position.xyz + normal.xyz * vDisplace).xyz;
       
        	gl_Position = projectionMatrix  * viewMatrix * modelMatrix  * vec4( newPosition, 1.0 );
