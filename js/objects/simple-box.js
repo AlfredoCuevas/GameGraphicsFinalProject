@@ -14,7 +14,7 @@ function createSimpleBox(w, h, d){
     var mesh = new THREE.Mesh(cube, material);
 
     mesh.Start = function(){
-        //mesh.position.y += 1.0;
+        mesh.position.y += 1.0;
     }
 
     mesh.Update = function(){
