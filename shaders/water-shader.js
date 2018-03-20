@@ -6,7 +6,7 @@ var waterVShader = `
     void main(){
         vUv = uv;
         clipSpace = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        gl_Position = clipSpace;
     }
 `;
 
@@ -26,6 +26,6 @@ var waterFShader = `
         vec4 refractionColor = texture2D(uRefraction, refractionTexCoords);
         vec4 reflectionColor = texture2D(uReflection, reflectionTexCoords);
 
-        gl_FragColor = mix(reflectionColor, refractionColor, .05);
+        gl_FragColor = mix(reflectionColor, refractionColor, 0.5);
     }
 `;

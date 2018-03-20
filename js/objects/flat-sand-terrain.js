@@ -17,12 +17,14 @@ function createSand(w, d, y, texture, normalMap, heightMap){
 		vertexShader: sandVShader,
 		fragmentShader: sandFShader,
 		side: THREE.DoubleSide,
+		clipping: true,
 	});
 
 	var mesh = new THREE.Mesh(geometry, material);
 
 	mesh.Start = function(){
-		mesh.position.z = -3.0;
+		//mesh.position.z = -3.0;
+		mesh.position.y = -1.5;
 		mesh.rotateX(-Math.PI/2.0);
 	}
 

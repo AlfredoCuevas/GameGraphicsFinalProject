@@ -13,9 +13,12 @@ var sandVShader = `
     varying float vDisplace; 
 	varying vec2 vUv;
 
+	#include <clipping_planes_pars_vertex> // Alfredo's edit
+
     //precision mediump float;
 
 	void main() {
+		#include <begin_vertex> // Alfredo's edit
        
 		vUv = uv;
 		vec4 clr = texture2D(sandHeightMap, uv);
@@ -27,6 +30,10 @@ var sandVShader = `
         vec3 newPosition = (offset + position.xyz + normal.xyz * vDisplace).xyz;
       
        	gl_Position = projectionMatrix  * viewMatrix * modelMatrix  * vec4( newPosition, 1.0 );
+
+       	transformed = newPosition; // Alfredo's edit 
+       	#include <project_vertex> 
+        #include <clipping_planes_vertex> 
     }
 `;
 
@@ -34,6 +41,8 @@ var sandFShader = `
 
 	//FYI: most of the stuff in here is GLSL API calls
 	//precision mediump float;
+
+	#include <clipping_planes_pars_fragment> // Alfredo's edit
 
 	uniform sampler2D sandTexture; //, tSnow, tHill;
 
@@ -47,6 +56,8 @@ var sandFShader = `
 	}
 
 void main() {
+	#include <clipping_planes_fragment> // Alfredo's edit
+
 	//vUv = uv*8.0; 
 	vec4 grass = texture2D(sandTexture, vUv);
 	//vec4 hill = texture2D(tHill, vUv);
