@@ -27,10 +27,12 @@
 
     <!-- Loading external shaders -->
     <script src="shaders/basic-shader.js"></script>
+	<script src="shaders/sand-shaders.js"></script>
     <script src="shaders/water-shader.js"></script>
     <script src="shaders/mountain-shader.js"></script>
 
     <!-- Loading external objects -->
+	<script src="js/objects/flat-sand-terrain.js"></script>
     <script src="js/objects/simple-box.js"></script>
     <script src="js/objects/water-plane.js"></script>
     <script src="js/objects/mountain-plane.js"></script>
@@ -48,11 +50,18 @@
         var scene = new THREE.Scene();
 		
 		//skybox - will find a better/clear one at some point
-		var loader = new THREE.CubeTextureLoader();
-		loader.setPath('images/skybox/temp/');
-		scene.background = loader.load(['left.jpg', 'right.jpg',
-									'top.jpg', 'bottom.jpg',
-									'back.jpg', 'front.jpg']);
+		var cubeLoader = new THREE.CubeTextureLoader();
+		cubeLoader.setPath('images/skybox/temp/');
+		scene.background = cubeLoader.load(['left.jpg', 'right.jpg',
+											'top.jpg', 'bottom.jpg',
+											'back.jpg', 'front.jpg']);
+		
+		// sand textures + heightmap
+		var loader = new THREE.TextureLoader();
+		loader.setPath('images/sand/');
+		var sandTexture = loader.load('sand1.jpg');
+		var sandNormal = loader.load('sand1bump.jpg');
+		var sandHeight = loader.load('heightmapBlur.png');
 
         // camera
         var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
@@ -64,25 +73,24 @@
         var bufferObjectRefraction = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight); 
         var bufferObjectReflection = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight);
         var bufferScene = new THREE.Scene();
-        bufferScene.background = loader.load(['left.jpg', 'right.jpg',
-                                            'top.jpg', 'bottom.jpg',
-                                            'back.jpg', 'front.jpg']);
+		cubeLoader.setPath('images/skybox/temp/');
+        bufferScene.background = cubeLoader.load(['left.jpg', 'right.jpg',
+												  'top.jpg', 'bottom.jpg',
+												  'back.jpg', 'front.jpg']);
 
-            // add all objects to buffer scene except for water
-            var bufferBox = createSimpleBox(1.0,1.0,1.0);
-            var bufferMount = createMountainPlane(20, 20);
-            bufferScene.add(bufferBox);
-            bufferScene.add(bufferMount);
+        // add all objects to buffer scene except for water
+        var bufferBox = createSimpleBox(1.0,1.0,1.0);
+        bufferScene.add(bufferBox);
 
         // create objects
         var water = createWaterPlane(20, 20, bufferObjectRefraction.texture, bufferObjectReflection.texture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
-        var mount = createMountainPlane(20, 20);
+		var sand = createSand(50, 50, -1.0, sandTexture, sandNormal, sandHeight);
 
         // add objects to the scene
-        scene.add(mount);
         scene.add(box);
         scene.add(water);
+		scene.add(sand);
 
         // Creating a clipping plane that is applied to the frame buffer objects
         var globalPlanes = [new THREE.Plane( new THREE.Vector3(0, -1, 0), water.position.y),  //<- Refraction
