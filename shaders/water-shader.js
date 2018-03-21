@@ -37,7 +37,7 @@ var waterFShader = `
 
     const float waveStrength = 0.01; // how much the water ripples
     const float shineDamper = 20.0;
-    const float reflectivity = 0.6;
+    const float reflectivity = 0.4;
 
     void main(){
         vec2 ndc = (clipSpace.xy/ clipSpace.w)/2.0 + 0.5;
