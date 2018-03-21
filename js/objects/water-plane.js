@@ -1,4 +1,4 @@
-function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection){
+function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection, bufferObjectRefractionDepthTexture){
 	
 	var geometry = new THREE.PlaneGeometry(w, d, 20, 20);
 
@@ -11,6 +11,7 @@ function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection
 	var shaderInput = {
 		uRefraction: {type: "t", value: bufferTextureRefraction },
 		uReflection: {type: "t", value: bufferTextureReflection },
+		depthMap: { type: "t", value: bufferObjectRefractionDepthTexture },
 		dudvMap: {type: "t", value: dudvTex },
 		normalMap: {type: "t", value: normalsTex },
 		moveFactor: {type: 'f', value: 0.0 }, 
@@ -26,6 +27,8 @@ function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection
 		vertexShader: waterVShader,
 		fragmentShader: waterFShader,
 		side: THREE.DoubleSide,
+		blending: THREE.NormalBlending,
+		transparent: true,
 	});
 
 	var mesh = new THREE.Mesh(geometry, material);

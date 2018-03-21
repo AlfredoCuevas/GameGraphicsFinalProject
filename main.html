@@ -72,6 +72,10 @@
         // bufferObjectRefraction / Reflection create an off-screen buffer. (Frame Buffer Object)!Update this for windowResize
         var bufferObjectRefraction = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight); 
         var bufferObjectReflection = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight);
+
+        bufferObjectRefraction.depthBuffer = true;
+        bufferObjectRefraction.depthTexture = new THREE.DepthTexture();
+
         var bufferScene = new THREE.Scene();
 		cubeLoader.setPath('images/skybox/temp/');
         bufferScene.background = cubeLoader.load(['left.jpg', 'right.jpg',
@@ -85,7 +89,7 @@
         bufferScene.add(bufferBox);
 
         // create objects
-        var water = createWaterPlane(45, 45, bufferObjectRefraction.texture, bufferObjectReflection.texture);
+        var water = createWaterPlane(45, 45, bufferObjectRefraction.texture, bufferObjectReflection.texture, bufferObjectRefraction.depthTexture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
 		var sand = createSand(50, 50, -1.0, sandTexture, sandNormal, sandHeight);
 

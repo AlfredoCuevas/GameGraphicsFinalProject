@@ -32,6 +32,7 @@ var waterFShader = `
     uniform sampler2D uReflection;
     uniform sampler2D dudvMap;
     uniform sampler2D normalMap;
+    uniform sampler2D depthMap;
 
     uniform float moveFactor; // how fast the water seems to move
 
@@ -44,6 +45,16 @@ var waterFShader = `
         vec2 refractionTexCoords = vec2(ndc.x, ndc.y);
         vec2 reflectionTexCoords = vec2(ndc.x, 1.0 - ndc.y); // I need to flip the texture because it is a reflection
 
+        // Finding the waterDepth  by using the depthMap and waterDistance (distance from camera to the plane)
+        float near = 0.1; // near plane and far plane. These should be the same as the ones defined in the perspective camera
+        float far = 1000.0;
+        float depth = texture2D(depthMap, refractionTexCoords).r;
+        float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+
+        depth = gl_FragCoord.z;
+        float waterDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
+        float waterDepth = floorDistance - waterDistance;
+
         // Add the ripples by distorting the water and applying it to the Tex coordinates
         // vec2 distortion1 = (texture2D(dudvMap, vec2(vUv.x + moveFactor, vUv.y)).rg) * waveStrength;
         // vec2 distortion2 = (texture2D(dudvMap, vec2(-vUv.x + moveFactor, vUv.y + moveFactor)).rg) * waveStrength;
@@ -51,7 +62,7 @@ var waterFShader = `
 
         vec2 distortion = texture2D(dudvMap, vec2(vUv.x + moveFactor, vUv.y)).rg * 0.1;
         distortion = vUv + vec2(distortion.x, distortion.y + moveFactor);
-        vec2 totalDistortion = (texture2D(dudvMap, distortion).rg * 2.0 - 1.0) * waveStrength;
+        vec2 totalDistortion = (texture2D(dudvMap, distortion).rg * 2.0 - 1.0) * waveStrength * clamp(waterDepth/20.0, 0.0, 1.0);
 
         refractionTexCoords += totalDistortion;
         refractionTexCoords = clamp(refractionTexCoords, 0.001, 0.999 );
@@ -63,23 +74,25 @@ var waterFShader = `
         vec4 refractionColor = texture2D(uRefraction, refractionTexCoords);
         vec4 reflectionColor = texture2D(uReflection, reflectionTexCoords);
 
+        // create the normals for the water using the normal map. normalMapColor.b is multiplied by a number to make the normals point upward more.
+        vec4 normalMapColor = texture2D(normalMap, distortion);
+        vec3 normal = vec3(normalMapColor.r * 2.0 - 1.0, normalMapColor.b * 4.0, normalMapColor.g * 2.0 - 1.0);
+        normal = normalize(normal);
+
         //Creates a Fresnel effect by taking the dot product of the camera vector and the waters normal
         vec3 viewVector = normalize(cameraVector);
-        float refractiveFactor = dot(viewVector, vec3(0.0, 1.0, 0.0));
+        float refractiveFactor = dot(viewVector, normal);
         refractiveFactor = pow( abs(refractiveFactor), 0.8);
-
-        // create the normals for the water using the normal map.
-        vec4 normalMapColor = texture2D(normalMap, distortion);
-        vec3 normal = vec3(normalMapColor.r * 2.0 - 1.0, normalMapColor.b, normalMapColor.g * 2.0 - 1.0);
-        normal = normalize(normal);
+        refractiveFactor = clamp(refractiveFactor, 0.0, 1.0);
 
         // reflect the light using the normals. specularHighlights will only show at certain angles
         vec3 reflectedLight = reflect(normalize(fromLightVector), normal);
         float specular = max(dot(reflectedLight, viewVector), 0.0);
         specular = pow(specular, shineDamper);
-        vec3 specularHighlights = lightColor * specular * reflectivity;
+        vec3 specularHighlights = lightColor * specular * reflectivity * clamp(waterDepth/2.0, 0.0, 1.0); // specularHighlights are reduced on edges
 
         gl_FragColor = mix(reflectionColor, refractionColor, refractiveFactor);
         gl_FragColor = mix(gl_FragColor, vec4(uColor, 1.0), 0.5) + vec4(specularHighlights, 0.0); // adding a blue tint and specularHighlights
+        gl_FragColor.a = clamp(waterDepth/1.0, 0.0, 1.0); // changing the alpha value(transparency) based on the water depth to create soft edges
     }
 `;
