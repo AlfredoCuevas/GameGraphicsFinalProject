@@ -12,6 +12,7 @@ function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection
 		moveFactor: {type: 'f', value: 0.0 }, 
 		uTime: {type: 'f', value: 0.0 },
 		uColor: {type: 'f', value: new THREE.Color('#0098af') },
+		camPosition: {type: 'v3', value: new THREE.Vector3(0.0, 0.0, 0.0) },
 	}
 
 	var material = new THREE.ShaderMaterial({
@@ -37,6 +38,10 @@ function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection
 	mesh.Update = function(){
 		mesh.material.uniforms.moveFactor.value += 0.001; // wave speed movement
 		mesh.material.uniforms.moveFactor.value %= 1;
+
+		mesh.material.uniforms.camPosition.value = new THREE.Vector3(CMENGINE.camera.position.x,
+																	 CMENGINE.camera.position.y,
+																	 CMENGINE.camera.position.z);
 	}
 
 	return mesh;

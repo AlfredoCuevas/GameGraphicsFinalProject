@@ -1,12 +1,18 @@
 var waterVShader = `
 
+    uniform vec3 camPosition;
+
     varying vec2 vUv;
     varying vec4 clipSpace;
+    varying vec3 cameraVector;
 
     void main(){
         vUv = uv * 6.0;
+        vec4 worldPos = modelMatrix * vec4(position, 1.0);
         clipSpace = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         gl_Position = clipSpace;
+
+        cameraVector = camPosition - worldPos.xyz;
     }
 `;
 
@@ -14,6 +20,8 @@ var waterFShader = `
 
     varying vec2 vUv;
     varying vec4 clipSpace;
+    varying vec3 cameraVector;
+
     uniform vec3 uColor;
     uniform sampler2D uRefraction;
     uniform sampler2D uReflection;
@@ -43,7 +51,10 @@ var waterFShader = `
         vec4 refractionColor = texture2D(uRefraction, refractionTexCoords);
         vec4 reflectionColor = texture2D(uReflection, reflectionTexCoords);
 
-        gl_FragColor = mix(reflectionColor, refractionColor, 0.5);
+        vec3 viewVector = normalize(cameraVector);
+        float refractiveFactor = dot(viewVector, vec3(0.0, 1.0, 0.0));
+
+        gl_FragColor = mix(reflectionColor, refractionColor, refractiveFactor);
         gl_FragColor = mix(gl_FragColor, vec4(uColor, 1.0), 0.5); // adding a blue tint
     }
 `;
