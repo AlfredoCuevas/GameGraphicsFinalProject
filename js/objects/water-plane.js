@@ -1,18 +1,24 @@
-function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection, texPath){
+function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection){
 	
 	var geometry = new THREE.PlaneGeometry(w, d, 20, 20);
 
-	var dudvTex = new THREE.TextureLoader().load(texPath);
+	var dudvTex = new THREE.TextureLoader().load('images/water/waterDUDV.png');
+	var normalsTex = new THREE.TextureLoader().load('images/water/normalMap.png');
+
+	var lightSource = new THREE.Vector3(-100, 100, 100);
 
 
 	var shaderInput = {
 		uRefraction: {type: "t", value: bufferTextureRefraction },
 		uReflection: {type: "t", value: bufferTextureReflection },
 		dudvMap: {type: "t", value: dudvTex },
+		normalMap: {type: "t", value: normalsTex },
 		moveFactor: {type: 'f', value: 0.0 }, 
 		uTime: {type: 'f', value: 0.0 },
 		uColor: {type: 'f', value: new THREE.Color('#0098af') },
 		camPosition: {type: 'v3', value: new THREE.Vector3(0.0, 0.0, 0.0) },
+		lightPos: {type: 'v3', value: lightSource },
+		lightColor: {type: 'v3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
 	}
 
 	var material = new THREE.ShaderMaterial({
@@ -33,6 +39,9 @@ function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection
         // To fix this, you need to set the wrapping mode of your texture to "Repeat".
 		mesh.material.uniforms.dudvMap.value.wrapS = 
 		mesh.material.uniforms.dudvMap.value.wrapT = THREE.RepeatWrapping;
+
+		mesh.material.uniforms.normalMap.value.wrapS =
+		mesh.material.uniforms.normalMap.value.wrapT = THREE.RepeatWrapping;
 	}
 
 	mesh.Update = function(){
