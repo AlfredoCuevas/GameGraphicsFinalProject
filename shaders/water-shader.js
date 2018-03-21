@@ -29,7 +29,7 @@ var waterFShader = `
 
     uniform float moveFactor; // how fast the water seems to move
 
-    const float waveStrength = 0.01; // how much the water ripples
+    const float waveStrength = 0.02; // how much the water ripples
 
     void main(){
         vec2 ndc = (clipSpace.xy/ clipSpace.w)/2.0 + 0.5;
@@ -51,6 +51,7 @@ var waterFShader = `
         vec4 refractionColor = texture2D(uRefraction, refractionTexCoords);
         vec4 reflectionColor = texture2D(uReflection, reflectionTexCoords);
 
+        //Creates a Fresnel effect by taking the dot product of the camera vector and the waters normal
         vec3 viewVector = normalize(cameraVector);
         float refractiveFactor = dot(viewVector, vec3(0.0, 1.0, 0.0));
 
