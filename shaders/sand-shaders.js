@@ -22,7 +22,7 @@ var sandVShader = `
 		#include <begin_vertex> // Alfredo's edit
        
 		vUv = uv;
-		vec2 timeShift = uv*8.0 + vec2(sandSpeed, 0.2*sandSpeed);
+		vec2 timeShift = uv*2.0 + vec2(sandSpeed, 0.6*sandSpeed);
 		vec4 clr = texture2D(sandHeightMap, uv);
 		vec4 clr2 = texture2D(sandNormalMap, timeShift);
 		float clrSum = clr.r+clr.g+clr.b;
