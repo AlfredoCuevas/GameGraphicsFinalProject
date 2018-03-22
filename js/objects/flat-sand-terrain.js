@@ -53,7 +53,7 @@ function createSand(w, d, y){
 	}
 
 	mesh.Update = function(){
-		mesh.material.uniforms.sandSpeed.value += 0.0005;
+		mesh.material.uniforms.sandSpeed.value += 0.0003;
 		//texture.offset.y += .003;
 		//texture.offset.x += .001;
 		//bump.offset.y -= 30;
