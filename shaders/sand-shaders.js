@@ -2,6 +2,7 @@ var sandVShader = `
 
 	uniform sampler2D sandHeightMap;
 	uniform sampler2D sandNormalMap;
+	uniform float sandSpeed;
 
     //attribute vec3 position;
 	//attribute vec2 uv;
@@ -21,11 +22,12 @@ var sandVShader = `
 		#include <begin_vertex> // Alfredo's edit
        
 		vUv = uv;
+		vec2 timeShift = uv*2.0 + vec2(sandSpeed, 0.2*sandSpeed);
 		vec4 clr = texture2D(sandHeightMap, uv);
-		vec4 clr2 = texture2D(sandNormalMap, uv);
+		vec4 clr2 = texture2D(sandNormalMap, timeShift);
 		float clrSum = clr.r+clr.g+clr.b;
 		float clr2Sum = clr2.r+clr2.g+clr2.b;
-		vDisplace = 0.333 * (clrSum + clr2Sum*2.0) * displaceAmt - (3.0*0.5*displaceAmt);
+		vDisplace = 0.333 * (clrSum + clr2Sum*0.6) * displaceAmt - (1.6*0.5*displaceAmt);
 		vec3 offset = vec3(0.0, 0.0, yOffset); // GLSL z axis is vertical apparently
         vec3 newPosition = (offset + position.xyz + normal.xyz * vDisplace).xyz;
       
@@ -39,53 +41,39 @@ var sandVShader = `
 
 var sandFShader = `
 
-	//FYI: most of the stuff in here is GLSL API calls
 	//precision mediump float;
 
 	#include <clipping_planes_pars_fragment> // Alfredo's edit
 
 	uniform sampler2D sandTexture; //, tSnow, tHill;
-
-	//attribute vec2 uv; not fucking worth it
+	uniform float sandSpeed;
+	
+	//attribute vec2 uv; 
 	varying vec2 vUv;
 	varying float vDisplace; //this /has/ to be passed from the vtx shader then
 
-	//so this is in C I guess??? -> evidently, since it doesnt like nested functions
+	
 	vec4 blend(float min, float value, float max, vec4 minTex, vec4 maxTex) {
-	return mix(minTex, maxTex, (value-min)/(max-min));
+		return mix(minTex, maxTex, (value-min)/(max-min));
 	}
 
 void main() {
 	#include <clipping_planes_fragment> // Alfredo's edit
 
 	//vUv = uv*8.0; 
-	vec4 grass = texture2D(sandTexture, vUv);
-	//vec4 hill = texture2D(tHill, vUv);
-	//vec4 snow = texture2D(tSnow, vUv);
-	float zOffset = vDisplace * 0.80;
-	float shtaZ = 0.48;
-	float ueZ = 0.69;
-	float blendRange = 0.08; //how far zones bleed into each other (.06 both directions)
-	//float highZ = 0.6;
-	/*vec4 mix1 = mix(grass, hill, min(1.0,zOffset*1.0));
-	vec4 mix2 = max(vec4(1.0), mix(hill, snow, zOffset) * 1.5);
-	vec4 mix3 = mix(mix1, mix2, zOffset);
-	*/
+	// repeat texture 2x 
+	vec2 timeShift = vUv*2.0 + vec2(sandSpeed, 0.2*sandSpeed);
+	vec4 grass = texture2D(sandTexture, timeShift);
+	//grass += ;
 	
+	//float zOffset = vDisplace * 0.80;
+	//float blendRange = 0.08; //how far zones bleed into each other (.06 both directions)
+	//vec4 mix1 = mix(grass, hill, min(1.0,zOffset*1.0));
+	//vec4 mix2 = max(vec4(1.0), mix(hill, snow, zOffset) * 1.5);
+
 	gl_FragColor = vec4( grass.rgb, 1.0 ); //alpha here doesnt matter 
 	
-	/*if (ueZ + blendRange < zOffset) {
-		gl_FragColor = vec4(snow.rgb, 1.0);
-	}
-	else if (ueZ - blendRange < zOffset) {
-		gl_FragColor = blend(ueZ-blendRange, zOffset, ueZ+blendRange, hill, snow);
-	}
-	else if (shtaZ + blendRange < zOffset) {
-		gl_FragColor = vec4(hill.rgb, 1.0);
-	}
-	else if (shtaZ - blendRange < zOffset) {
-		gl_FragColor = blend(shtaZ-blendRange, zOffset, shtaZ+blendRange, grass, hill);
-	}
-	*/
+	//gl_FragColor = blend(shtaZ-blendRange, zOffset, shtaZ+blendRange, grass, hill);
+
 }
 `;
