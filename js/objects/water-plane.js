@@ -15,7 +15,7 @@ function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection
 		normalMap: {type: "t", value: normalsTex },
 		moveFactor: {type: 'f', value: 0.0 }, 
 		uTime: {type: 'f', value: 0.0 },
-		uColor: {type: 'f', value: new THREE.Color('#0098af') },
+		uColor: {type: 'f', value: new THREE.Color('#5c7aa8') },
 		camPosition: {type: 'v3', value: new THREE.Vector3(0.0, 0.0, 0.0) },
 		lightPos: {type: 'v3', value: lightSource },
 		lightColor: {type: 'v3', value: new THREE.Vector3(1.0, 1.0, 1.0) },

@@ -1,4 +1,11 @@
-function createSand(w, d, y, texture, bump, normal, heightMap){
+function createSand(w, d, y){
+	
+	var loader = new THREE.TextureLoader();
+	loader.setPath('images/sand/');
+	var texture = loader.load('sand1.jpg');
+	var bump = loader.load('sand2normalShallow.jpg');
+	var normal = loader.load('sand1bump.jpg');
+	var heightMap = loader.load('heightmapBlur.png');
 	
 	var sandSpeed = 0.0;
 	
@@ -46,7 +53,7 @@ function createSand(w, d, y, texture, bump, normal, heightMap){
 	}
 
 	mesh.Update = function(){
-		mesh.material.uniforms.sandSpeed.value += 0.0002;
+		mesh.material.uniforms.sandSpeed.value += 0.0005;
 		//texture.offset.y += .003;
 		//texture.offset.x += .001;
 		//bump.offset.y -= 30;

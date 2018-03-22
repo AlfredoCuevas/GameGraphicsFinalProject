@@ -56,13 +56,6 @@
 											'top.jpg', 'bottom.jpg',
 											'back.jpg', 'front.jpg']);
 		
-		// sand textures + heightmap
-		var loader = new THREE.TextureLoader();
-		loader.setPath('images/sand/');
-		var sandTexture = loader.load('sand1.jpg');
-		var sandBump = loader.load('sand2normalShallow.jpg');
-		var sandNormal = loader.load('sand1bump.jpg');
-		var sandHeight = loader.load('heightmapBlur.png');
 
 		// lights - for testing bump mapping on sand
 		var ambientLight = new THREE.AmbientLight(0x888888);
@@ -86,7 +79,7 @@
 
         // add all objects to buffer scene except for water
         var bufferBox = createSimpleBox(1.0,1.0,1.0);
-        var bufferSand = createSand(50, 50, -1.0, sandTexture, sandBump, sandNormal, sandHeight);
+        var bufferSand = createSand(50, 50, -1.0);
         bufferScene.add(bufferSand);
         bufferScene.add(bufferBox);
 		bufferScene.add(ambientLight);
@@ -95,7 +88,7 @@
         // create objects
         var water = createWaterPlane(45, 45, bufferObjectRefraction.texture, bufferObjectReflection.texture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
-		var sand = createSand(50, 50, -1.0, sandTexture, sandBump, sandNormal, sandHeight);
+		var sand = createSand(50, 50, -1.0);
 
         // add objects to the scene
         scene.add(box);
