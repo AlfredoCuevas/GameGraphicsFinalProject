@@ -20,7 +20,7 @@ Team Members:
 
 ### Contributions
 <b>Alfredo Cuevas</b><br>
-I initially was going to implement simple water with caustics. I switched the goal of my part of the project and created water that reflects and refracts the environment around it. The water ripples and looks like its moving. It has simple specular highlights from certain angles. The edges of the water blend with the sand so that there is a soft transition between the water and the terrain. There is also a Fresnel Effect applied to the water that makes the water reflect/refract more at certain angles.
+Initially the goal was to implement water that had caustics. I switched the goal of my part of the project and created water that reflects and refracts the environment around it. The water ripples and looks like it's moving. It has simple specular highlights from certain angles. The edges of the water blend with the sand so that there is a soft transition between the water and the terrain. There is also a Fresnel Effect applied to the water that makes the water reflect/refract more at certain angles.
     Also set up the initial structure of the code based on examples from Lucas's lab. 
 
 <b>Robert Gaines</b>
