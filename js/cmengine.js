@@ -25,6 +25,10 @@ CMENGINE.Start = function( scene, renderer, camera, bufferScene, bufferObjectRef
 
     //CMENGINE.camera.position.z = 5.0;
     CMENGINE.controls = new THREE.OrbitControls(CMENGINE.camera);
+    CMENGINE.controls.autoRotate = true;
+    CMENGINE.controls.autoRotateSpeed = 1.5;
+    CMENGINE.controls.maxDistance = 40;
+    CMENGINE.controls.maxPolarAngle = Math.PI/2.2;
 }
 
 CMENGINE.Update = function(){

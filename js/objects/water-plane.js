@@ -34,7 +34,7 @@ function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection
 	var mesh = new THREE.Mesh(geometry, material);
 
 	mesh.Start = function(){
-		//mesh.position.z = -10.0;
+		mesh.position.x = -3.0;
 		mesh.rotateX(-Math.PI/2.0);
 
 		// By default, textures have "Clamp To Edge" wrapping mode, which means u or v

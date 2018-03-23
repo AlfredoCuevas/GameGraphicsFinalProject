@@ -70,8 +70,8 @@
 		
         // camera
         var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
-        camera.position.z = 15.0;
-        camera.position.y = 10.0;
+        camera.position.z = 25.0;
+        camera.position.y = 8.0;
 
         // FrameBufferObject: bufferScene will contain everything in scene except for the water
         // bufferObjectRefraction / Reflection create an off-screen buffer. (Frame Buffer Object)!Update this for windowResize
@@ -96,7 +96,7 @@
 		scene.add(sun);
 		
         // create objects
-        var water = createWaterPlane(45, 45, bufferObjectRefraction.texture, bufferObjectReflection.texture, bufferObjectRefraction.depthTexture);
+        var water = createWaterPlane(37, 37, bufferObjectRefraction.texture, bufferObjectReflection.texture, bufferObjectRefraction.depthTexture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
 		var sand = createSand(50, 50, -1.0);
 
