@@ -11,7 +11,7 @@ Team Members:
   Trenten Kaufeldt-Lira: Clouds
   
 <b>Structure of the Project</b>
-<p>
+
   <b> * index.html *</b> simply provides a link to the main.html file. <br>
   <b> * main.html *</b> is were all the code from the other files is brought together. It contains all the code for setting up the scene, renderer, and camera. It calls code from the object files found in the js/ folder. To start running and updating the scene it calls cmengine.js . <br>
   <b> * js/ *</b> contains all javaScript files that aren't shaders. <br>
