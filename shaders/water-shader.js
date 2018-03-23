@@ -9,7 +9,7 @@ var waterVShader = `
     varying vec3 fromLightVector;
 
     void main(){
-        vUv = uv * 2.0;
+        vUv = uv * 3.0;
         vec4 worldPos = modelMatrix * vec4(position, 1.0);
         clipSpace = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         gl_Position = clipSpace;
@@ -36,7 +36,7 @@ var waterFShader = `
 
     uniform float moveFactor; // how fast the water seems to move
 
-    const float waveStrength = 0.01; // how much the water ripples
+    const float waveStrength = 0.02; // how much the water ripples
     const float shineDamper = 20.0;
     const float reflectivity = 0.4;
 
@@ -76,13 +76,13 @@ var waterFShader = `
 
         // create the normals for the water using the normal map. normalMapColor.b is multiplied by a number to make the normals point upward more.
         vec4 normalMapColor = texture2D(normalMap, distortion);
-        vec3 normal = vec3(normalMapColor.r * 2.0 - 1.0, normalMapColor.b * 4.0, normalMapColor.g * 2.0 - 1.0);
+        vec3 normal = vec3(normalMapColor.r * 2.0 - 1.0, normalMapColor.b * 6.0, normalMapColor.g * 2.0 - 1.0);
         normal = normalize(normal);
 
         //Creates a Fresnel effect by taking the dot product of the camera vector and the waters normal
         vec3 viewVector = normalize(cameraVector);
         float refractiveFactor = dot(viewVector, normal);
-        refractiveFactor = pow( abs(refractiveFactor), 0.8);
+        refractiveFactor = pow( abs(refractiveFactor), 1.0);
         refractiveFactor = clamp(refractiveFactor, 0.0, 1.0);
 
         // reflect the light using the normals. specularHighlights will only show at certain angles
@@ -93,6 +93,6 @@ var waterFShader = `
 
         gl_FragColor = mix(reflectionColor, refractionColor, refractiveFactor);
         gl_FragColor = mix(gl_FragColor, vec4(uColor, 1.0), 0.5) + vec4(specularHighlights, 0.0); // adding a blue tint and specularHighlights
-        gl_FragColor.a = clamp(waterDepth/1.0, 0.0, 1.0); // changing the alpha value(transparency) based on the water depth to create soft edges
+        gl_FragColor.a = clamp(waterDepth/8.0, 0.0, 1.0); // changing the alpha value(transparency) based on the water depth to create soft edges
     }
 `;

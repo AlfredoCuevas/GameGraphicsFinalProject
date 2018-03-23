@@ -48,7 +48,7 @@ function createSand(w, d, y){
 
 	mesh.Start = function(){
 		//mesh.position.z = -3.0;
-		mesh.position.y = -1.7;
+		mesh.position.y = -2.0;
 		mesh.rotateX(-Math.PI/2.0);
 	}
 
