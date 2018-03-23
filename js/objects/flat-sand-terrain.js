@@ -2,27 +2,34 @@ function createSand(w, d, y){
 	
 	var loader = new THREE.TextureLoader();
 	loader.setPath('images/sand/');
-	var texture = loader.load('sand1.jpg');
+	var fineTexture = loader.load('sand1.jpg');
+	var texture = loader.load('SandCombo5.png');
 	var bump = loader.load('sand2normalShallow.jpg');
-	var normal = loader.load('sand1bump.jpg');
+	var normal = loader.load('sand4bump.jpg');
+	var megaNormal = loader.load('sand1bump.jpg');
 	var heightMap = loader.load('heightmapBlur.png');
 	
 	var sandSpeed = 0.0;
 	
 	var geometry = new THREE.PlaneGeometry(w, d, 256, 256);
+	//var geometry = new THREE.PlaneGeometry(w, d, 512, 512);
 	
 	texture.wrapS = texture.wrapT = 
+	fineTexture.wrapS = fineTexture.wrapT =
 	bump.wrapS = bump.wrapT = 
 	normal.wrapS = normal.wrapT = 
+	megaNormal.wrapS = megaNormal.wrapT = 
 	heightMap.wrapS = heightMap.wrapT = THREE.RepeatWrapping;
     //texture.repeat.set(3, 3);
     //bump.repeat.set(1, 1);
 	
 	var shaderInput = {
+		fineTexture: {type: "t", value: fineTexture },
 		sandTexture: {type: "t", value: texture },
 		sandNormalMap: {type: "t", value: normal },
+		sandMegaNormalMap: {type: "t", value: megaNormal },
 		sandHeightMap: {type: "t", value: heightMap },
-		displaceAmt: { type: "f", value: 12.0 },
+		displaceAmt: { type: "f", value: 15.0 }, //12.0
 		yOffset: { type: "f", value: y },
 		sandSpeed: { type: "f", value: sandSpeed },
 		//uTime: {type: 'f', value: 0.0 },
@@ -48,12 +55,13 @@ function createSand(w, d, y){
 
 	mesh.Start = function(){
 		//mesh.position.z = -3.0;
-		mesh.position.y = -2.0;
+		mesh.position.x = -3; // to line up with water
+		mesh.position.y = -1.4;
 		mesh.rotateX(-Math.PI/2.0);
 	}
 
 	mesh.Update = function(){
-		mesh.material.uniforms.sandSpeed.value += 0.0003;
+		mesh.material.uniforms.sandSpeed.value += 0.0001; //.0003
 		//texture.offset.y += .003;
 		//texture.offset.x += .001;
 		//bump.offset.y -= 30;

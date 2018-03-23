@@ -90,7 +90,7 @@
 
         // add all objects to buffer scene except for water
         var bufferBox = createSimpleBox(1.0,1.0,1.0);
-        var bufferSand = createSand(50, 50, -1.0);
+        var bufferSand = createSand(45, 45, -1.0);
         bufferScene.add(bufferSand);
         bufferScene.add(bufferBox);
 		bufferScene.add(ambientLight);
@@ -99,7 +99,7 @@
         // create objects
         var water = createWaterPlane(37, 37, bufferObjectRefraction.texture, bufferObjectReflection.texture, bufferObjectRefraction.depthTexture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
-		var sand = createSand(50, 50, -1.0);
+		var sand = createSand(45, 45, -1.0);
 
         // add objects to the scene
         scene.add(box);
@@ -120,6 +120,14 @@
 		if (panningEnabled == true) {
 			camera = createPanningCamera(panningPath);
 		}
+		/* Path key
+			1 flat pan near water
+			2 rotating looking at clouds
+			3 stationary shot rotating looking over water
+			4 sort-of down outside view -> speed up for timelapse
+			5 shot close in, then slowly spirals out, looking a bit more upwards
+			<END>
+		*/
 		
         // CMENGINE
         CMENGINE.Start( scene, renderer, camera, controlsEnabled, bufferScene, bufferObjectRefraction, bufferObjectReflection );

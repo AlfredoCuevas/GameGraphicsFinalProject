@@ -2,6 +2,7 @@ var sandVShader = `
 
 	uniform sampler2D sandHeightMap;
 	uniform sampler2D sandNormalMap;
+	uniform sampler2D sandMegaNormalMap;
 	uniform float sandSpeed;
 
     //attribute vec3 position;
@@ -22,12 +23,15 @@ var sandVShader = `
 		#include <begin_vertex> // Alfredo's edit
        
 		vUv = uv;
-		vec2 timeShift = uv*2.0 + vec2(sandSpeed, 0.2*sandSpeed);
+		vec2 timeShift = uv*1.0 + vec2(0.2*sandSpeed, 0.3*sandSpeed);
+		vec2 megaShift = uv*8.0 + vec2(13.2*sandSpeed, 11.3*sandSpeed);
 		vec4 clr = texture2D(sandHeightMap, uv);
 		vec4 clr2 = texture2D(sandNormalMap, timeShift);
+		vec4 clr3 = texture2D(sandMegaNormalMap, megaShift);
 		float clrSum = clr.r+clr.g+clr.b;
 		float clr2Sum = clr2.r+clr2.g+clr2.b;
-		vDisplace = 0.333 * (clrSum + clr2Sum*0.4) * displaceAmt - (1.4*0.5*displaceAmt);
+		float clr3Sum = clr3.r+clr3.g+clr3.b;
+		vDisplace = 0.333 * (clrSum + clr2Sum*0.8 + clr3Sum*0.15) * displaceAmt - (2.10*0.5*displaceAmt);
 		vec3 offset = vec3(0.0, 0.0, yOffset); // GLSL z axis is vertical apparently
         vec3 newPosition = (offset + position.xyz + normal.xyz * vDisplace).xyz;
       
@@ -46,6 +50,7 @@ var sandFShader = `
 	#include <clipping_planes_pars_fragment> // Alfredo's edit
 
 	uniform sampler2D sandTexture; //, tSnow, tHill;
+	uniform sampler2D fineTexture;
 	uniform float sandSpeed;
 	
 	//attribute vec2 uv; 
@@ -62,16 +67,19 @@ void main() {
 
 	//vUv = uv*8.0; 
 	// repeat texture 2x 
-	vec2 timeShift = vUv*2.0 + vec2(sandSpeed, 0.2*sandSpeed);
-	vec4 grass = texture2D(sandTexture, timeShift);
-	//grass += ;
+	vec2 timeShift = vUv*1.0 + vec2(0.2*sandSpeed, 0.3*sandSpeed);
+	vec2 megaShift = vUv*8.0 + vec2(13.2*sandSpeed, 11.3*sandSpeed);
+	vec4 timeTex = texture2D(sandTexture, timeShift);
+	vec4 megaTex = texture2D(fineTexture, megaShift);
 	
+	//grass += ;
 	//float zOffset = vDisplace * 0.80;
 	//float blendRange = 0.08; //how far zones bleed into each other (.06 both directions)
 	//vec4 mix1 = mix(grass, hill, min(1.0,zOffset*1.0));
 	//vec4 mix2 = max(vec4(1.0), mix(hill, snow, zOffset) * 1.5);
 
-	gl_FragColor = vec4( grass.rgb, 1.0 ); //alpha here doesnt matter 
+	gl_FragColor = mix(timeTex, megaTex, 0.4);
+	//gl_FragColor = vec4( grass.rgb, 1.0 ); //alpha here doesnt matter 
 	
 	//gl_FragColor = blend(shtaZ-blendRange, zOffset, shtaZ+blendRange, grass, hill);
 
