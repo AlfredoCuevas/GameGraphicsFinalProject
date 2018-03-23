@@ -12,7 +12,7 @@ Team Members:
   
 <b>Structure of the Project</b>
 
-&nbsb  <b>*index.html *</b> simply provides a link to the main.html file. <br>
+&nbsb;  <b>*index.html *</b> simply provides a link to the main.html file. <br>
 &nbsb  <b>*main.html *</b> is were all the code from the other files is brought together. It contains all the code for setting up the scene, renderer, and camera. It calls code from the object files found in the js/ folder. To start running and updating the scene it calls cmengine.js . <br>
 &nbsb  <b>*js/ *</b> contains all javaScript files that aren't shaders. <br>
 &nbsb  <b>*cmengine.js *</b> calls the Start() functions inside of every object that was placed in a scene. It then runs Update() which will render the scenes, update any values, and then call itself again. <br>
