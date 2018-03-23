@@ -12,12 +12,12 @@ Team Members:
   
 <b>Structure of the Project</b>
 <p>
-  <b>* index.html *</b> simply provides a link to the main.html file. <br>
-  <b>* main.html *</b> is were all the code from the other files is brought together. It contains all the code for setting up the scene, renderer, and camera. It calls code from the object files found in the js/ folder. To start running and updating the scene it calls cmengine.js . <br>
-  <b>* js/ *</b> contains all javaScript files that aren't shaders. <br>
-  <b>* cmengine.js *</b> calls the Start() functions inside of every object that was placed in a scene. It then runs Update() which will render the scenes, update any values, and then call itself again. <br>
-  <b>* <object-file>.js *</b> These are all files for adding objects/meshes to the scene. They create a function that will return a mesh for an object that is ready to be added to a scene. Inside these files textures are loaded and shader files are called. Every mesh is given a .Start() and .Update() that are called inside of cmengine.js. <br>
-   <b>* shaders/ </b> Every shader that is called in an object file is kept here. <br>
+  <b> * index.html *</b> simply provides a link to the main.html file. <br>
+  <b> * main.html *</b> is were all the code from the other files is brought together. It contains all the code for setting up the scene, renderer, and camera. It calls code from the object files found in the js/ folder. To start running and updating the scene it calls cmengine.js . <br>
+  <b> * js/ *</b> contains all javaScript files that aren't shaders. <br>
+  <b> * cmengine.js *</b> calls the Start() functions inside of every object that was placed in a scene. It then runs Update() which will render the scenes, update any values, and then call itself again. <br>
+  <b> * <object-file>.js *</b> These are all files for adding objects/meshes to the scene. They create a function that will return a mesh for an object that is ready to be added to a scene. Inside these files textures are loaded and shader files are called. Every mesh is given a .Start() and .Update() that are called inside of cmengine.js. <br>
+   <b>  * shaders/ </b> Every shader that is called in an object file is kept here. <br>
 
 
 <b>Alfredo Cuevas</b>
