@@ -42,7 +42,8 @@
     <script src="js/objects/simple-box.js"></script>
     <script src="js/objects/water-plane.js"></script>
     <script src="js/objects/mountain-plane.js"></script>
-
+	<script src="js/objects/21st-century-cinematography.js"></script>
+	
     <script>
 
         var container = document.getElementById('container');
@@ -69,7 +70,7 @@
 		sun.position.set(16, 10, -5);
 		
         // camera
-        var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
+        var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 10000 );
         camera.position.z = 25.0;
         camera.position.y = 8.0;
 
@@ -93,7 +94,7 @@
         bufferScene.add(bufferSand);
         bufferScene.add(bufferBox);
 		bufferScene.add(ambientLight);
-		scene.add(sun);
+		bufferScene.add(sun);
 		
         // create objects
         var water = createWaterPlane(37, 37, bufferObjectRefraction.texture, bufferObjectReflection.texture, bufferObjectRefraction.depthTexture);
@@ -112,9 +113,16 @@
                             new THREE.Plane( new THREE.Vector3(0,  1, 0), water.position.y)]; //<- Reflection
         renderer.clippingPlanes = globalPlanes;
 
-
+		// camera panning for the video flyover thing
+		var panningEnabled = false;
+		var controlsEnabled = !(panningEnabled);
+		var panningPath = 1;
+		if (panningEnabled == true) {
+			camera = createPanningCamera(panningPath);
+		}
+		
         // CMENGINE
-        CMENGINE.Start( scene, renderer, camera, bufferScene, bufferObjectRefraction, bufferObjectReflection );
+        CMENGINE.Start( scene, renderer, camera, controlsEnabled, bufferScene, bufferObjectRefraction, bufferObjectReflection );
         CMENGINE.Update();
 
     </script>

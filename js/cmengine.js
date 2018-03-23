@@ -1,6 +1,6 @@
 var CMENGINE = {}
 
-CMENGINE.Start = function( scene, renderer, camera, bufferScene, bufferObjectRefraction, bufferObjectReflection ){
+CMENGINE.Start = function( scene, renderer, camera, controlsEnabled, bufferScene, bufferObjectRefraction, bufferObjectReflection ){
     for(var i = 0; i < scene.children.length; i++){
         if(scene.children[i].Start != null){
             scene.children[i].Start();
@@ -23,12 +23,23 @@ CMENGINE.Start = function( scene, renderer, camera, bufferScene, bufferObjectRef
     CMENGINE.bufferObjectRefraction = bufferObjectRefraction;
     CMENGINE.bufferObjectReflection = bufferObjectReflection;
 
-    //CMENGINE.camera.position.z = 5.0;
-    CMENGINE.controls = new THREE.OrbitControls(CMENGINE.camera);
-    CMENGINE.controls.autoRotate = true;
-    CMENGINE.controls.autoRotateSpeed = 1.5;
-    CMENGINE.controls.maxDistance = 40;
-    CMENGINE.controls.maxPolarAngle = Math.PI/2.2;
+    // false if doing flyover pan for the video
+	if (controlsEnabled == true) {
+		//CMENGINE.camera.position.z = 5.0;
+		CMENGINE.controls = new THREE.OrbitControls(camera);
+		//CMENGINE.controls.autoRotate = true;
+		//CMENGINE.controls.autoRotateSpeed = 1.5;
+		CMENGINE.controls.minDistance = 1;
+		CMENGINE.controls.maxDistance = 2000;  //40;
+		//CMENGINE.controls.maxPolarAngle = Math.PI/2.2;
+		
+		//makes rotating smoother, can disable if you want
+		CMENGINE.controls.enableDamping = true;
+		CMENGINE.controls.dampingFactor = 0.1; //default is 0.25
+		CMENGINE.controls.rotateSpeed = 0.05; //default is 1
+	} else {
+		CMENGINE.camera.Start();
+	}
 }
 
 CMENGINE.Update = function(){
@@ -44,7 +55,11 @@ CMENGINE.Update = function(){
         }
     }
 
-    CMENGINE.controls.update();
+    if (controlsEnabled == true) {
+		CMENGINE.controls.update();
+	} else {
+		CMENGINE.camera.AnotherUpdate();
+	}
 
     requestAnimationFrame(CMENGINE.Update);
 
