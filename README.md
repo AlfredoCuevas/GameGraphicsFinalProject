@@ -1,4 +1,5 @@
 ### `>> ` [Click here to run the project!](https://alfredocuevas.github.io/GameGraphicsFinalProject/main.html) `<<` 
+#### `> ` [Click here to watch the demo!](https://alfredocuevas.github.io/GameGraphicsFinalProject/demoReel.mp4) `<` 
 <br>
 
 # CMPM163 FINAL PROJECT: Simple Oasis
