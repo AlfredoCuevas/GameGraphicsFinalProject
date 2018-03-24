@@ -5,10 +5,6 @@ var sandVShader = `
 	uniform sampler2D sandMegaNormalMap;
 	uniform float sandSpeed;
 
-    //attribute vec3 position;
-	//attribute vec2 uv;
-	//attribute vec3 normal;
-
 	uniform float displaceAmt; //controls the amount of vertex displacement...
 	uniform float yOffset;
 	
@@ -35,7 +31,7 @@ var sandVShader = `
 		vec3 offset = vec3(0.0, 0.0, yOffset); // GLSL z axis is vertical apparently
         vec3 newPosition = (offset + position.xyz + normal.xyz * vDisplace).xyz;
       
-       	gl_Position = projectionMatrix  * viewMatrix * modelMatrix  * vec4( newPosition, 1.0 );
+       	gl_Position = vec4( newPosition, 1.0 ) modelMatrix * viewMatrix * projectionMatrix;
 
        	transformed = newPosition; // Alfredo's edit 
        	#include <project_vertex> 
@@ -55,33 +51,19 @@ var sandFShader = `
 	
 	//attribute vec2 uv; 
 	varying vec2 vUv;
-	varying float vDisplace; //this /has/ to be passed from the vtx shader then
-
-	
-	vec4 blend(float min, float value, float max, vec4 minTex, vec4 maxTex) {
-		return mix(minTex, maxTex, (value-min)/(max-min));
-	}
+	varying float vDisplace;
 
 void main() {
 	#include <clipping_planes_fragment> // Alfredo's edit
 
 	//vUv = uv*8.0; 
-	// repeat texture 2x 
+	// repeat texture 1x, 8x 
 	vec2 timeShift = vUv*1.0 + vec2(0.2*sandSpeed, 0.3*sandSpeed);
 	vec2 megaShift = vUv*8.0 + vec2(13.2*sandSpeed, 11.3*sandSpeed);
 	vec4 timeTex = texture2D(sandTexture, timeShift);
 	vec4 megaTex = texture2D(fineTexture, megaShift);
-	
-	//grass += ;
-	//float zOffset = vDisplace * 0.80;
-	//float blendRange = 0.08; //how far zones bleed into each other (.06 both directions)
-	//vec4 mix1 = mix(grass, hill, min(1.0,zOffset*1.0));
-	//vec4 mix2 = max(vec4(1.0), mix(hill, snow, zOffset) * 1.5);
 
 	gl_FragColor = mix(timeTex, megaTex, 0.4);
-	//gl_FragColor = vec4( grass.rgb, 1.0 ); //alpha here doesnt matter 
-	
-	//gl_FragColor = blend(shtaZ-blendRange, zOffset, shtaZ+blendRange, grass, hill);
 
 }
 `;
