@@ -4,7 +4,7 @@
     Robert Gaines
     Trenten Kaufeldt-Lira
 -->
-<!-- 
+<!--
     About the Project:
     This is our Final Project for CMPM163.
     We are creating a simple oasis scene
@@ -16,7 +16,7 @@
 <head>
     <title>CMPM163 Final Project</title>
     <style>
-        body { 
+        body {
             margin: 0;
             overflow: hidden;
          }
@@ -36,14 +36,17 @@
 	<script src="shaders/sand-shaders.js"></script>
     <script src="shaders/water-shader.js"></script>
     <script src="shaders/mountain-shader.js"></script>
+    <script src="shaders/cloud-shader.js"></script>
+
 
     <!-- Loading external objects -->
 	<script src="js/objects/flat-sand-terrain.js"></script>
     <script src="js/objects/simple-box.js"></script>
     <script src="js/objects/water-plane.js"></script>
+    <script src="js/objects/cloud-scape.js"></script>
     <script src="js/objects/mountain-plane.js"></script>
 	<script src="js/objects/21st-century-cinematography.js"></script>
-	
+
     <script>
 
         var container = document.getElementById('container');
@@ -55,20 +58,20 @@
 
         // scene
         var scene = new THREE.Scene();
-		
+
 		//skybox - will find a better/clear one at some point
 		var cubeLoader = new THREE.CubeTextureLoader();
 		cubeLoader.setPath('images/skybox/temp/');
 		scene.background = cubeLoader.load(['left.jpg', 'right.jpg',
 											'top.jpg', 'bottom.jpg',
 											'back.jpg', 'front.jpg']);
-		
+
 
 		// lights - for testing bump mapping on sand
 		var ambientLight = new THREE.AmbientLight(0x888888);
 		var sun = new THREE.DirectionalLight(0xcccccc, 1);
 		sun.position.set(16, 10, -5);
-		
+
         // camera
         var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 10000 );
         camera.position.z = 25.0;
@@ -76,7 +79,7 @@
 
         // FrameBufferObject: bufferScene will contain everything in scene except for the water
         // bufferObjectRefraction / Reflection create an off-screen buffer. (Frame Buffer Object)!Update this for windowResize
-        var bufferObjectRefraction = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight); 
+        var bufferObjectRefraction = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight);
         var bufferObjectReflection = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight);
 
         bufferObjectRefraction.depthBuffer = true;
@@ -91,15 +94,18 @@
         // add all objects to buffer scene except for water
         var bufferBox = createSimpleBox(1.0,1.0,1.0);
         var bufferSand = createSand(45, 45, -1.0);
+        var bufferClouds = createClouds(1000,1000,100);
         bufferScene.add(bufferSand);
         bufferScene.add(bufferBox);
 		bufferScene.add(ambientLight);
 		bufferScene.add(sun);
-		
+		bufferScene.add(bufferClouds);
+
         // create objects
         var water = createWaterPlane(37, 37, bufferObjectRefraction.texture, bufferObjectReflection.texture, bufferObjectRefraction.depthTexture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
 		var sand = createSand(45, 45, -1.0);
+		var clouds = createClouds(1000,1000,100);
 
         // add objects to the scene
         scene.add(box);
@@ -107,6 +113,7 @@
 		scene.add(sand);
 		scene.add(ambientLight);
 		scene.add(sun);
+		scene.add(clouds);
 
         // Creating a clipping plane that is applied to the frame buffer objects
         var globalPlanes = [new THREE.Plane( new THREE.Vector3(0, -1, 0), water.position.y),  //<- Refraction
@@ -120,6 +127,7 @@
 		if (panningEnabled == true) {
 			camera = createPanningCamera(panningPath);
 		}
+
 		/* Path key
 			1 flat pan near water
 			2 rotating looking at clouds
@@ -128,7 +136,7 @@
 			5 shot close in, then slowly spirals out, looking a bit more upwards
 			<END>
 		*/
-		
+
         // CMENGINE
         CMENGINE.Start( scene, renderer, camera, controlsEnabled, bufferScene, bufferObjectRefraction, bufferObjectReflection );
         CMENGINE.Update();
