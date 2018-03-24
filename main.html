@@ -112,7 +112,7 @@
 		scene.add(sand);
 		scene.add(ambientLight);
 		scene.add(sun);
-		scene.add(clouds);
+		//scene.add(clouds);
 
         // Creating a clipping plane that is applied to the frame buffer objects
         var globalPlanes = [new THREE.Plane( new THREE.Vector3(0, -1, 0), water.position.y),  //<- Refraction
@@ -122,11 +122,10 @@
 		// camera panning for the video flyover thing
 		var panningEnabled = false;
 		var controlsEnabled = !(panningEnabled);
-		var panningPath = 1;
+		var panningPath = 5;
 		if (panningEnabled == true) {
 			camera = createPanningCamera(panningPath);
 		}
-
 		/* Path key
 			1 flat pan near water
 			2 rotating looking at clouds
