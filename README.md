@@ -1,4 +1,4 @@
-### `>> `[Click here to run the project!](https://alfredocuevas.github.io/GameGraphicsFinalProject/main.html) `<<` 
+### `>> ` [Click here to run the project!](https://alfredocuevas.github.io/GameGraphicsFinalProject/main.html) `<<` 
 <br>
 
 # CMPM163 FINAL PROJECT: Simple Oasis
