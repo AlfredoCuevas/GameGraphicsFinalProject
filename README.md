@@ -6,9 +6,9 @@ To Run the Project simply click on this
 ## CMPM163 FINAL PROJECT: Simple Oasis
 
 Team Members: 
-  1. Alfredo Cuevas - acuevas5: Water <br>
-  2. Robert Gaines: Sand/Terrain <br>
-  3. Trenten Kaufeldt-Lira: Clouds <br>
+  1. Alfredo Cuevas (acuevas5): **Water** <br>
+  2. Robert Gaines: **Sand/Terrain** <br>
+  3. Trenten Kaufeldt-Lira (insculpo): **Clouds** <br>
   
 ### Structure of the Project
 - **_index.html_** simply provides a link to the main.html file. <br>
@@ -20,11 +20,19 @@ Team Members:
 
 ### Contributions
 <b>Alfredo Cuevas</b><br>
-Initially the goal was to implement water that had caustics. I switched the goal of my part of the project and created water that reflects and refracts the environment around it. The water ripples and looks like it's moving. It has simple specular highlights from certain angles. The edges of the water blend with the sand so that there is a soft transition between the water and the terrain. There is also a Fresnel Effect applied to the water that makes the water reflect/refract more at certain angles.
-    Also set up the initial structure of the code based on examples from Lucas's lab. 
+- Initially the goal was to implement water that had caustics. I switched the goal of my part of the project and created water that reflects and refracts the environment around it. The water ripples and looks like it's moving. It has simple specular highlights from certain angles. The edges of the water blend with the sand so that there is a soft transition between the water and the terrain. There is also a Fresnel Effect applied to the water that makes the water reflect/refract more at certain angles.
+- Also set up the initial structure of the code based on examples from Lucas's lab.
+- Water section of the SIGGRAPH paper
+- Setup and formatting of the SIGGRAPH paper
 
 <b>Robert Gaines</b>
-
+- Sand shaders
+- Height map for sand shader (all other textures from Filter Forge, some modified by me)
+- Video demonstration clip
+- Simple translating camera system for the video clip
+- Skybox setup (skybox from **TBD**)
+- Sand section of the SIGGRAPH paper
 
 <b>Trenten Kaufeldt-Lira</b>
-
+- Sexy clouds
+- Cloud section of the SIGGRAPH paper
