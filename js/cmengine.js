@@ -43,6 +43,16 @@ CMENGINE.Start = function( scene, renderer, camera, controlsEnabled, bufferScene
 }
 
 CMENGINE.Update = function(){
+	if (controlsEnabled == true) {
+		CMENGINE.controls.update();
+		requestAnimationFrame(CMENGINE.Update);
+	} else {
+		CMENGINE.camera.AnotherUpdate();
+		//setTimeout( function() {
+			requestAnimationFrame(CMENGINE.Update);
+		//}, 1000/30 );
+	}
+	
     for(var i = 0; i < CMENGINE.scene.children.length; i++){
         if(CMENGINE.scene.children[i].Update != null){
             CMENGINE.scene.children[i].Update();
@@ -54,14 +64,8 @@ CMENGINE.Update = function(){
             CMENGINE.bufferScene.children[i].Update();
         }
     }
-
-    if (controlsEnabled == true) {
-		CMENGINE.controls.update();
-	} else {
-		CMENGINE.camera.AnotherUpdate();
-	}
-
-    requestAnimationFrame(CMENGINE.Update);
+			
+    //requestAnimationFrame(CMENGINE.Update);
 
     // Temp is an array that will be used to apply clipping planes to individual FBO
     var temp = CMENGINE.renderer.clippingPlanes;

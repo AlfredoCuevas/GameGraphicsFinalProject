@@ -122,7 +122,7 @@
 		// camera panning for the video flyover thing
 		var panningEnabled = false;
 		var controlsEnabled = !(panningEnabled);
-		var panningPath = 5;
+		var panningPath = 1;
 		if (panningEnabled == true) {
 			camera = createPanningCamera(panningPath);
 		}
@@ -130,7 +130,7 @@
 			1 flat pan near water
 			2 rotating looking at clouds
 			3 stationary shot rotating looking over water
-			4 sort-of down outside view -> speed up for timelapse
+			4 sort-of down outside view -> speed up x10 for timelapse
 			5 shot close in, then slowly spirals out, looking a bit more upwards
 			<END>
 		*/
