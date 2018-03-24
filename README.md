@@ -3,7 +3,7 @@
 
 # CMPM163 FINAL PROJECT: Simple Oasis
 
-Team Members: 
+### Team Members: 
   1. Alfredo Cuevas (acuevas5): **Water** <br>
   2. Robert Gaines: **Sand/Terrain** <br>
   3. Trenten Kaufeldt-Lira (insculpo): **Clouds** <br>
@@ -20,7 +20,7 @@ Team Members:
 <b>Alfredo Cuevas</b><br>
 - Initially the goal was to implement water that had caustics. I switched the goal of my part of the project and created water that reflects and refracts the environment around it. The water ripples and looks like it's moving. It has simple specular highlights from certain angles. The edges of the water blend with the sand so that there is a soft transition between the water and the terrain. There is also a Fresnel Effect applied to the water that makes the water reflect/refract more at certain angles.
 - Also set up the initial structure of the code based on examples from Lucas's lab.
-- Water section of the SIGGRAPH paper
+- Introduction + Water section of the SIGGRAPH paper
 - Setup and formatting of the SIGGRAPH paper
 
 <b>Robert Gaines</b>
