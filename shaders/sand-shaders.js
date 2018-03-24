@@ -31,7 +31,7 @@ var sandVShader = `
 		vec3 offset = vec3(0.0, 0.0, yOffset); // GLSL z axis is vertical apparently
         vec3 newPosition = (offset + position.xyz + normal.xyz * vDisplace).xyz;
       
-       	gl_Position = vec4( newPosition, 1.0 ) modelMatrix * viewMatrix * projectionMatrix;
+       	gl_Position = vec4( newPosition, 1.0 ) * modelMatrix * viewMatrix * projectionMatrix;
 
        	transformed = newPosition; // Alfredo's edit 
        	#include <project_vertex> 
