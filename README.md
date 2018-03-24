@@ -35,5 +35,7 @@
 - Sand section of the SIGGRAPH paper
 
 <b>Trenten Kaufeldt-Lira</b>
-- Sexy clouds
+- Prerendered Noise Clouds
+- Pixel based opacity shader
+- Cloud Layering
 - Cloud section of the SIGGRAPH paper

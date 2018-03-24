@@ -1,23 +1,29 @@
-var CloudMap = `
+var CloudMap =`
 	#include <clipping_planes_pars_vertex>
 
-    void main(){
-    	#include <begin_vertex>
+	varying vec2 vUv;
 
-        //gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  void main(){
+  	#include <begin_vertex>
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 
-        #include <project_vertex>
-        #include <clipping_planes_vertex>
+      #include <project_vertex>
+      #include <clipping_planes_vertex>
 
     }
 `;
 
-var CloudColors = `
+var CloudColors =`
     #include <clipping_planes_pars_fragment>
+
+		uniform sampler2D texture;
+		uniform float rate;
+
+		varying vec2 vUv;
 
     void main(){
     	#include <clipping_planes_fragment>
 
-        gl_FragColor = vec4(0.9, 0.9, 0.9, 1.0);
+        gl_FragColor = texture2D(texture,vUv);
     }
 `;
