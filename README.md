@@ -1,9 +1,7 @@
-# GameGraphicsFinalProject
+### `>> `[Click here to run the project!](https://alfredocuevas.github.io/GameGraphicsFinalProject/main.html) `<<` 
+<br><br><br>
 
-To Run the Project simply click on this 
-[link Oasis Final Project](https://alfredocuevas.github.io/GameGraphicsFinalProject/main.html)
-
-## CMPM163 FINAL PROJECT: Simple Oasis
+# CMPM163 FINAL PROJECT: Simple Oasis
 
 Team Members: 
   1. Alfredo Cuevas (acuevas5): **Water** <br>
