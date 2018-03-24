@@ -26,7 +26,8 @@ function createWaterPlane(w, d, bufferTextureRefraction, bufferTextureReflection
 		uniforms: shaderInput,
 		vertexShader: waterVShader,
 		fragmentShader: waterFShader,
-		side: THREE.DoubleSide,
+		//(Robert) did this so you dont see water from under side, dont mind if you change back
+		side: THREE.DoubleSide, 
 		blending: THREE.NormalBlending,
 		transparent: true,
 	});

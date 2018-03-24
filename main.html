@@ -94,19 +94,19 @@
 
         // add all objects to buffer scene except for water
         var bufferBox = createSimpleBox(1.0,1.0,1.0);
-        var bufferSand = createSand(50, 50, -1.0);
+        var bufferSand = createSand(45, 45, -1.0);
         var bufferClouds = createClouds(1000,1000,100);
         bufferScene.add(bufferSand);
         bufferScene.add(bufferBox);
 		bufferScene.add(ambientLight);
 		bufferScene.add(sun);
-    bufferScene.add(bufferClouds);
+		bufferScene.add(bufferClouds);
 
         // create objects
         var water = createWaterPlane(37, 37, bufferObjectRefraction.texture, bufferObjectReflection.texture, bufferObjectRefraction.depthTexture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
-		var sand = createSand(50, 50, -1.0);
-    var clouds = createClouds(1000,1000,100);
+		var sand = createSand(45, 45, -1.0);
+		var clouds = createClouds(1000,1000,100);
 
         // add objects to the scene
         scene.add(box);
@@ -114,7 +114,7 @@
 		scene.add(sand);
 		scene.add(ambientLight);
 		scene.add(sun);
-    scene.add(clouds);
+		scene.add(clouds);
 
         // Creating a clipping plane that is applied to the frame buffer objects
         var globalPlanes = [new THREE.Plane( new THREE.Vector3(0, -1, 0), water.position.y),  //<- Refraction
@@ -128,6 +128,15 @@
 		if (panningEnabled == true) {
 			camera = createPanningCamera(panningPath);
 		}
+
+		/* Path key
+			1 flat pan near water
+			2 rotating looking at clouds
+			3 stationary shot rotating looking over water
+			4 sort-of down outside view -> speed up for timelapse
+			5 shot close in, then slowly spirals out, looking a bit more upwards
+			<END>
+		*/
 
         // CMENGINE
         CMENGINE.Start( scene, renderer, camera, controlsEnabled, bufferScene, bufferObjectRefraction, bufferObjectReflection );
