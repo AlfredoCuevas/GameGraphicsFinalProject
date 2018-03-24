@@ -5,6 +5,9 @@ var CloudMap =`
 
   void main(){
   	#include <begin_vertex>
+
+		vUv = uv;
+
       gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 
       #include <project_vertex>

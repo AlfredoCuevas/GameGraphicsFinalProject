@@ -3,7 +3,7 @@ function createClouds(x,y,h,clouds)
   var plane = new THREE.PlaneGeometry(x,y);
 
   var shaderInput = {
-    texture: {type: "t", value: new THREE.TextureLoader().load('images/Clouds/Cloud_Map.png')},
+    texture: {type: "t", value: new THREE.TextureLoader().load('images/Clouds/Cloud_Map_4.png')},
     rate: {type: "f", value: 0.0}
   }
 
@@ -12,7 +12,9 @@ function createClouds(x,y,h,clouds)
         vertexShader: CloudMap,
         fragmentShader: CloudColors,
         side: THREE.DoubleSide,
-        clipping: false,
+        clipping: true,
+    		blending: THREE.NormalBlending,
+    		transparent: true
       });
 
   var mesh = new THREE.Mesh(plane, material);
