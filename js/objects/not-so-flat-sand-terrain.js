@@ -1,4 +1,4 @@
-function createSand(w, d, y){
+function createSand(w, d, y, speed){
 	
 	var loader = new THREE.TextureLoader();
 	loader.setPath('images/sand/');
@@ -61,7 +61,7 @@ function createSand(w, d, y){
 	}
 
 	mesh.Update = function(){
-		mesh.material.uniforms.sandSpeed.value += 0.0001; //.0003
+		mesh.material.uniforms.sandSpeed.value += speed; //.0003
 		//texture.offset.y += .003;
 		//texture.offset.x += .001;
 		//bump.offset.y -= 30;

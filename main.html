@@ -72,7 +72,7 @@
 		sun.position.set(16, 10, -5);
 
         // camera
-        var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 10000 );
+        var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 100000 );
         camera.position.z = 25.0;
         camera.position.y = 8.0;
 
@@ -92,7 +92,7 @@
 
         // add all objects to buffer scene except for water
         var bufferBox = createSimpleBox(1.0,1.0,1.0);
-        var bufferSand = createSand(45, 45, -1.0);
+        var bufferSand = createSand(45, 45, -1.0, 0.0001);
         var bufferClouds = createClouds(10000,10000,100);
         bufferScene.add(bufferSand);
         bufferScene.add(bufferBox);
@@ -103,8 +103,14 @@
         // create objects
         var water = createWaterPlane(37, 37, bufferObjectRefraction.texture, bufferObjectReflection.texture, bufferObjectRefraction.depthTexture);
         var box = createSimpleBox(1.0, 1.0, 1.0);
+<<<<<<< HEAD
 		var sand = createSand(45, 45, -1.0);
 		var clouds = createClouds(20000,20000,150);
+=======
+
+		var sand = createSand(45, 45, -1.0, 0.0001); //.0003
+		var clouds = createClouds(20000,20000,100);
+>>>>>>> befb1bf7434e3849cd4e96071553194a2619d9cd
 
         // add objects to the scene
         scene.add(box);
@@ -122,7 +128,7 @@
 		// camera panning for the video flyover thing
 		var panningEnabled = false;
 		var controlsEnabled = !(panningEnabled);
-		var panningPath = 1;
+		var panningPath = 4;
 		if (panningEnabled == true) {
 			camera = createPanningCamera(panningPath);
 		}
