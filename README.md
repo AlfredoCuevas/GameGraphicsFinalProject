@@ -31,7 +31,7 @@
 - Height map for sand shader (all other textures from Filter Forge, some modified by me)
 - Video demonstration clip
 - Simple translating camera system for the video clip
-- Skybox setup (skybox from **TBD**)
+- Skybox setup (skybox from Insurgency)
 - Sand section of the SIGGRAPH paper
 
 <b>Trenten Kaufeldt-Lira</b>
