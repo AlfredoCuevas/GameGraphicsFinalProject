@@ -18,8 +18,8 @@ function createPanningCamera(panningPath){
 			camera.position.set(-10, 1.5, 4);
 		}
 		else if (panningPath == 4) {
-			camera.position.set(45, 19, 0);
-			camera.setRotationFromEuler(new THREE.Euler(-0.25, 0.5*Math.PI, 0.0, 'YXZ'));
+			camera.position.set(-25.5, 3.75, -2);
+			camera.setRotationFromEuler(new THREE.Euler(-0.05, 1.48*Math.PI, 0.0, 'YXZ'));
 		}
 		else if (panningPath == 5) {
 			camera.position.set(45, 500, -17);

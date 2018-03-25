@@ -47,7 +47,7 @@ var waterFShader = `
 
         // Finding the waterDepth  by using the depthMap and waterDistance (distance from camera to the plane)
         float near = 0.1; // near plane and far plane. These should be the same as the ones defined in the perspective camera
-        float far = 10000.0;
+        float far = 100000.0;
         float depth = texture2D(depthMap, refractionTexCoords).r;
         float floorDistance = 2.0 * near * far / (far + near - (2.0 * depth - 1.0) * (far - near));
 
