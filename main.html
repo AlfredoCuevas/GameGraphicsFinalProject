@@ -61,10 +61,10 @@
 
 		//skybox - will find a better/clear one at some point
 		var cubeLoader = new THREE.CubeTextureLoader();
-		cubeLoader.setPath('images/skybox/temp/');
-		scene.background = cubeLoader.load(['left.jpg', 'right.jpg',
-											'top.jpg', 'bottom.jpg',
-											'back.jpg', 'front.jpg']);
+		cubeLoader.setPath('images/skybox/better/');
+		scene.background = cubeLoader.load(['front.png', 'back.png',
+											'top.png', 'bottom.png',
+											'right.png', 'left.png']);
 
 		// lights - for testing bump mapping on sand
 		var ambientLight = new THREE.AmbientLight(0x888888);
@@ -85,10 +85,10 @@
         bufferObjectRefraction.depthTexture = new THREE.DepthTexture();
 
         var bufferScene = new THREE.Scene();
-		cubeLoader.setPath('images/skybox/temp/');
-        bufferScene.background = cubeLoader.load(['left.jpg', 'right.jpg',
-												  'top.jpg', 'bottom.jpg',
-												  'back.jpg', 'front.jpg']);
+		cubeLoader.setPath('images/skybox/better/');
+        bufferScene.background = cubeLoader.load(['front.png', 'back.png',
+											'top.png', 'bottom.png',
+											'right.png', 'left.png']);
 
         // add all objects to buffer scene except for water
         var bufferBox = createSimpleBox(1.0,1.0,1.0);
