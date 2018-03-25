@@ -14996,6 +14996,7 @@
 		this.skinning = false; // set to use skinning attribute streams
 		this.morphTargets = false; // set to use morph targets
 		this.morphNormals = false; // set to use morph normals
+		this.alphaMap = null;
 
 		this.extensions = {
 			derivatives: false, // set to use derivatives
@@ -38056,7 +38057,7 @@
 									cpx0 = laste.x;
 									cpy0 = laste.y;
 
-									
+
 
 								}
 
@@ -38080,7 +38081,7 @@
 									cpx0 = laste.x;
 									cpy0 = laste.y;
 
-									
+
 
 								}
 

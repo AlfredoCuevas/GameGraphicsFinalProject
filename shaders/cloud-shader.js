@@ -19,14 +19,23 @@ var CloudMap =`
 var CloudColors =`
     #include <clipping_planes_pars_fragment>
 
+		precision mediump float;
+
 		uniform sampler2D texture;
 		uniform float rate;
 
 		varying vec2 vUv;
+		vec2 pos = gl_fragCoord.xy;
+
+
 
     void main(){
     	#include <clipping_planes_fragment>
+			vec4 Texturizer = texture2D(texture,pos).a;
 
-        gl_FragColor = texture2D(texture,vUv);
+
+			Texturizer.a = 0.5;
+
+      gl_FragColor = Texturizer;
     }
 `;
