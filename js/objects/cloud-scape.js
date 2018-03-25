@@ -4,7 +4,7 @@ function createClouds(x,y,h,clouds)
   var plane = new THREE.PlaneGeometry(x,y);
 
   var shaderInput = {
-    texture: {type: "t", value: new THREE.TextureLoader().load('images/Clouds/Cloud_Map_4.png')},
+    texture: {type: "t", value: new THREE.TextureLoader().load('images/Clouds/Cloud_Map_5.png')},
     rate: {type: "f", value: 0.0}
   }
 
