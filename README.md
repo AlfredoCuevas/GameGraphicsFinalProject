@@ -1,6 +1,6 @@
 ### `>> ` [Click here to run the project!](https://alfredocuevas.github.io/GameGraphicsFinalProject/main.html) `<<` 
 #### `> ` [Click here to watch the demo!](https://alfredocuevas.github.io/GameGraphicsFinalProject/demoReel.mp4) `<` 
-#### `> ` [Click here to read the paper!](https://alfredocuevas.github.io/GameGraphicsFinalProject/SIGGRAPH.docx) `<` 
+#### `> ` [Click here to read the paper!](https://alfredocuevas.github.io/GameGraphicsFinalProject/Documentation-SIGGRAPH.pdf) `<` 
 #### `> ` [Click here see the proposal slides!](https://alfredocuevas.github.io/GameGraphicsFinalProject/Week10_Presentation.pdf) `<` 
 <br>
 
