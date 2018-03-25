@@ -36,6 +36,5 @@
 
 <b>Trenten Kaufeldt-Lira</b>
 - Prerendered Noise Clouds
-- Pixel based opacity shader
-- Cloud Layering
+- Varying transperancy for clouds
 - Cloud section of the SIGGRAPH paper
