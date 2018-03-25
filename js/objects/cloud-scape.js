@@ -22,8 +22,8 @@ function createClouds(x,y,h,clouds)
 
   mesh.Start = function(){
       mesh.position.y += h*2;
-      mesh.position.x = 500;
-      mesh.position.z = 500;
+      mesh.position.x = 1250;
+      mesh.position.z = 1250;
       mesh.rotation.x = 1.57079632679;
       mesh.rotation.y = 0;
       mesh.rotation.z = 0;
@@ -32,9 +32,8 @@ function createClouds(x,y,h,clouds)
   }
 
   mesh.Update = function(){
-      timer += 0.001;
-      mesh.position.z = mesh.position.z  + Math.cos(timer);
-      mesh.rotation.z = timer/10;
+      timer += 0.0001;
+      mesh.rotation.z = timer;
     }
   return mesh;
 }
