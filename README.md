@@ -9,7 +9,7 @@
 ### Team Members: 
   1. Alfredo Cuevas (acuevas5): **Water** <br>
   2. Robert Gaines: **Sand/Terrain** <br>
-  3. Trenten Kaufeldt-Lira (insculpo): **Clouds** <br>
+  3. Trevor Brin (insculpo): **Clouds** <br>
   
 ### Structure of the Project
 - **_index.html_** simply provides a link to the main.html file. <br>
@@ -34,7 +34,7 @@
 - Skybox setup (skybox from Insurgency?)
 - Sand section of the SIGGRAPH paper
 
-<b>Trenten Kaufeldt-Lira</b>
+<b>Trevor Brin</b>
 - Prerendered Noise Clouds
 - Varying transperancy for clouds
 - Cloud section of the SIGGRAPH paper
